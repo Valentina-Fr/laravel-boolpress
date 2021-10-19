@@ -1,7 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <h1>My Blog</h1>
+        <div class="d-flex justify-content-between">
+          <h1>My Blog</h1>
+          <a href="{{ route('admin.posts.create') }}" class="btn btn-success align-self-center">Write new post</a>
+        </div>
         <table class="table">
             <thead>
               <tr>
@@ -15,7 +18,15 @@
               <tr>
                 <th>{{ $post->title }}</th>
                 <td>{{ $post->getFormattedDate('created_at') }}</td>
-                <td><a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-primary">Vai</a></td>
+                <td class="d-flex justify-content-between">
+                  <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-primary">Read</a>
+                  <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-secondary">Edit</a>
+                  <form method="POST" action="{{ route('admin.posts.destroy', $post->id) }}">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                </td>
               </tr>
               @empty
               <tr>
@@ -24,5 +35,6 @@
               @endforelse
             </tbody>
           </table>
+          {{ $posts->links() }}
     </div>
 @endsection
