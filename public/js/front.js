@@ -2292,19 +2292,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
   data: function data() {
     return {
       baseUri: 'http://127.0.0.1:8000',
       posts: [],
-      pages: {}
+      pages: {},
+      isLoading: false
     };
   },
   methods: {
     getPosts: function getPosts(page) {
       var _this = this;
 
+      this.isLoading = true;
       axios.get("".concat(this.baseUri, "/api/posts?page=").concat(page)).then(function (res) {
         var _res$data = res.data,
             data = _res$data.data,
@@ -2317,6 +2322,8 @@ __webpack_require__.r(__webpack_exports__);
         };
       })["catch"](function (err) {
         console.error(err);
+      }).then(function () {
+        _this.isLoading = false;
       });
     }
   },
@@ -38637,6 +38644,17 @@ var render = function() {
     "div",
     { staticClass: "container py-3" },
     [
+      _vm.isLoading
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "vh-100 d-flex justify-content-center align-items-center"
+            },
+            [_c("div", { staticClass: "spinner-border" })]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _vm._l(_vm.posts, function(post, index) {
         return _c("div", { key: index, staticClass: "card my-5" }, [
           _c("div", { staticClass: "card-body" }, [
