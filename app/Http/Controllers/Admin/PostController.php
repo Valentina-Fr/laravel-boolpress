@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -25,8 +25,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.posts.create');
+    {   
+        $post = new Post;
+        return view('admin.posts.create', compact('post'));
     }
 
     /**
@@ -36,7 +37,16 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        $request->validate([
+            'title' => 'required|min:3|max:50',
+            'article' => 'required|min:10'
+        ], [
+            'required' => 'You must fill the :attribute field',
+            'min' => 'The field :attribute must be at least :min characters',
+            'max' => 'The field :attribute can\'t be longer than :max characters'
+        ]);
+
         $data = $request->all();
         $post = new Post();
         $post->fill($data);
@@ -75,6 +85,15 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate([
+            'title' => 'required|min:3|max:50',
+            'article' => 'required|min:10'
+        ], [
+            'required' => 'You must fill the :attribute field',
+            'min' => 'The field :attribute must be at least :min characters',
+            'max' => 'The field :attribute can\'t be longer than :max characters'
+        ]);
+
         $data = $request->all();
         $post->update($data);
         return redirect()->route('admin.posts.show', $post->id);
