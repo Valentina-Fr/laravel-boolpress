@@ -10,6 +10,7 @@
               <tr>
                 <th scope="col">Title</th>
                 <th scope="col">Written on</th>
+                <th scope="col">Category</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -18,6 +19,7 @@
               <tr>
                 <th>{{ $post->title }}</th>
                 <td>{{ $post->getFormattedDate('created_at') }}</td>
+                <td>@if($post->category) {{ $post->category->name }} @else - @endif</td>
                 <td class="d-flex justify-content-between">
                   <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-primary">Read</a>
                   <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-secondary">Edit</a>

@@ -27,9 +27,9 @@
     <div class="form-group">
       <label for="category_id">Category</label>
       <select id="category_id" class="form-control" name="category_id">
-        <option>None</option>
+        <option value="{{ null }}">None</option>
         @foreach ($categories as $category)
-        <option value="{{ $category->id }}" @if(old('category_id', $post->category_id) == $category->id) selected @endif>{{ $category->name }}
+        <option value="{{ $category->id }}" >{{ $category->name }}
         </option> 
         @endforeach
       </select>

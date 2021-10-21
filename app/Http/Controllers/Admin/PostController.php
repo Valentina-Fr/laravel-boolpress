@@ -42,8 +42,7 @@ class PostController extends Controller
     {   
         $request->validate([
             'title' => 'required|min:3|max:50',
-            'article' => 'required|min:10',
-            'category_id' => 'nullable|exists:categories,id'
+            'article' => 'required|min:10'
         ], [
             'required' => 'You must fill the :attribute field',
             'min' => 'The field :attribute must be at least :min characters',
@@ -91,8 +90,7 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|min:3|max:50',
-            'article' => 'required|min:10',
-            'category_id' => 'nullable|exists:categories,id'
+            'article' => 'required|min:10'
         ], [
             'required' => 'You must fill the :attribute field',
             'min' => 'The field :attribute must be at least :min characters',
