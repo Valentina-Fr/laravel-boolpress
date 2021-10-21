@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -24,10 +25,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Category $category)
     {   
         $post = new Post;
-        return view('admin.posts.create', compact('post'));
+        $categories = Category::all();
+        return view('admin.posts.create', compact('post', 'categories'));
     }
 
     /**
@@ -40,7 +42,8 @@ class PostController extends Controller
     {   
         $request->validate([
             'title' => 'required|min:3|max:50',
-            'article' => 'required|min:10'
+            'article' => 'required|min:10',
+            'category_id' => 'nullable|exists:categories,id'
         ], [
             'required' => 'You must fill the :attribute field',
             'min' => 'The field :attribute must be at least :min characters',
@@ -71,9 +74,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
-    {
-        return view('admin.posts.edit', compact('post')); 
+    public function edit(Post $post, Category $category)
+    {   
+        $categories = Category::all();
+        return view('admin.posts.edit', compact('post', 'categories')); 
     }
 
     /**
@@ -87,7 +91,8 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|min:3|max:50',
-            'article' => 'required|min:10'
+            'article' => 'required|min:10',
+            'category_id' => 'nullable|exists:categories,id'
         ], [
             'required' => 'You must fill the :attribute field',
             'min' => 'The field :attribute must be at least :min characters',

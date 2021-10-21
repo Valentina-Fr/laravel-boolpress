@@ -24,5 +24,18 @@
         @error('article') {{ $message }} @enderror
       </div>
     </div>
+    <div class="form-group">
+      <label for="category_id">Category</label>
+      <select id="category_id" class="form-control" name="category_id">
+        <option>None</option>
+        @foreach ($categories as $category)
+        <option value="{{ $category->id }}" @if(old('category_id', $post->category_id) == $category->id) selected @endif>{{ $category->name }}
+        </option> 
+        @endforeach
+      </select>
+      <div class="invalid-feedback">
+        @error('article') {{ $message }} @enderror
+      </div>
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
