@@ -4,10 +4,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ post.title }}</h5>
                 <p class="card-text">{{ post.article }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <a href="#" class="btn btn-primary">Read</a>
-                    <small>Published: {{ getFormattedDate(post.created_at) }}</small>
-                </div>
+                <small>Published: {{ getFormattedDate(post.created_at) }}</small>
             </div>
         </div>
     </div>

@@ -19,29 +19,29 @@ export default {
         Pagination
     },
     data(){
-            return {
-                baseUri:'http://127.0.0.1:8000',
-                posts: [],
-                pages: {},
-                isLoading: false
-            }
-        },
-        methods: {
-            getPosts(page) {
-                this.isLoading = true;
-                axios.get(`${this.baseUri}/api/posts?page=${page}`)
-                .then((res)=> {
-                    const {data, current_page, last_page} = res.data;
-                    this.posts = data;
-                    this.pages = { currentPage: current_page, lastPage: last_page }
-                })
-                .catch((err)=> { console.error(err); })
-                .then(()=> { this.isLoading = false });
-            }
-        }, 
-        created(){
-            this.getPosts();
+         return {
+            baseUri:'http://127.0.0.1:8000',
+            posts: [],
+            pages: {},
+            isLoading: false
         }
+    },
+    methods: {
+        getPosts(page) {
+            this.isLoading = true;
+            axios.get(`${this.baseUri}/api/posts?page=${page}`)
+            .then((res)=> {
+                const {data, current_page, last_page} = res.data;
+                this.posts = data;
+                this.pages = { currentPage: current_page, lastPage: last_page }
+            })
+            .catch((err)=> { console.error(err); })
+            .then(()=> { this.isLoading = false });
+        }
+    }, 
+    created(){
+        this.getPosts();
+    }
 }
 </script>
 

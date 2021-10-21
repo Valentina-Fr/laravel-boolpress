@@ -2306,9 +2306,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ListCard',
   props: ['postList'],
@@ -2345,6 +2342,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -38768,25 +38771,11 @@ var render = function() {
           _vm._v(" "),
           _c("p", { staticClass: "card-text" }, [_vm._v(_vm._s(post.article))]),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "d-flex justify-content-between align-items-center"
-            },
-            [
-              _c(
-                "a",
-                { staticClass: "btn btn-primary", attrs: { href: "#" } },
-                [_vm._v("Read")]
-              ),
-              _vm._v(" "),
-              _c("small", [
-                _vm._v(
-                  "Published: " + _vm._s(_vm.getFormattedDate(post.created_at))
-                )
-              ])
-            ]
-          )
+          _c("small", [
+            _vm._v(
+              "Published: " + _vm._s(_vm.getFormattedDate(post.created_at))
+            )
+          ])
         ])
       ])
     }),
@@ -38819,13 +38808,12 @@ var render = function() {
     _c(
       "ul",
       { staticClass: "pagination" },
-      _vm._l(_vm.pagination.lastPage, function(n) {
-        return _c(
+      [
+        _c(
           "li",
           {
-            key: n,
             staticClass: "page-item",
-            class: { active: _vm.pagination.currentPage === n }
+            class: { disabled: _vm.pagination.currentPage === 1 }
           },
           [
             _c(
@@ -38834,16 +38822,65 @@ var render = function() {
                 staticClass: "page-link",
                 on: {
                   click: function($event) {
-                    return _vm.$emit("goToPage", n)
+                    return _vm.$emit("goToPage", _vm.pagination.currentPage - 1)
                   }
                 }
               },
-              [_vm._v(_vm._s(n))]
+              [_vm._v("Previous")]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _vm._l(_vm.pagination.lastPage, function(n) {
+          return _c(
+            "li",
+            {
+              key: n,
+              staticClass: "page-item",
+              class: { active: _vm.pagination.currentPage === n }
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "page-link",
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("goToPage", n)
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(n))]
+              )
+            ]
+          )
+        }),
+        _vm._v(" "),
+        _c(
+          "li",
+          {
+            staticClass: "page-item",
+            class: {
+              disabled: _vm.pagination.currentPage === _vm.pagination.lastPage
+            }
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "page-link",
+                on: {
+                  click: function($event) {
+                    return _vm.$emit("goToPage", _vm.pagination.currentPage + 1)
+                  }
+                }
+              },
+              [_vm._v("Next")]
             )
           ]
         )
-      }),
-      0
+      ],
+      2
     )
   ])
 }
