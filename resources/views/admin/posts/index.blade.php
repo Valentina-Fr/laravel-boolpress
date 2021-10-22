@@ -38,7 +38,24 @@
               </tr>
               @endforelse
             </tbody>
-          </table>
+        </table>
+        <section>
           {{ $posts->links() }}
+        </section>
+        <hr>
+        <h3>Posts by categories</h3>
+        <div class="row">
+          @foreach ($categories as $category)
+            <div class="col-3 pt-5">
+              <h4>{{ $category->name }}</h4>
+                @forelse($category->posts as $post) 
+                <a href="{{ route('admin.posts.show', $post->id) }}" class="d-block">{{ $post->title }}</a>
+                @empty
+                <p>No posts yet</p>
+                @endforelse
+            </div>
+          @endforeach
+          </div>
+        </div>
     </div>
 @endsection
