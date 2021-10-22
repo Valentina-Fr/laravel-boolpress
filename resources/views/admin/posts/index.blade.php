@@ -10,6 +10,7 @@
               <tr>
                 <th scope="col">Title</th>
                 <th scope="col">Written on</th>
+                <th scope="col">Author</th>
                 <th scope="col" class="text-center">Category</th>
                 <th scope="col"></th>
               </tr>
@@ -19,6 +20,7 @@
               <tr>
                 <th>{{ $post->title }}</th>
                 <td>{{ $post->getFormattedDate('created_at') }}</td>
+                <td>@if($post->author){{ $post->author->name }} @else Anonymous @endif</td>
                 <td class="text-center">@if($post->category) <span class="badge badge-pill badge-success p-2">{{ $post->category->name }}</span> @else - @endif</td>
                 <td class="d-flex justify-content-around">
                   <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-primary">Read</a>
