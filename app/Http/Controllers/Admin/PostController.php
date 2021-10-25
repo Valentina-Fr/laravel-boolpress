@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -27,11 +28,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Category $category)
+    public function create()
     {   
         $post = new Post;
         $categories = Category::all();
-        return view('admin.posts.create', compact('post', 'categories'));
+        $tags = Tag::all();
+        return view('admin.posts.create', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -45,6 +47,7 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|min:3|max:50',
             'article' => 'required|min:10',
+            'tags' => 'nullable|exists:tags,id'
         ], [
             'required' => 'You must fill the :attribute field',
             'min' => 'The field :attribute must be at least :min characters',
@@ -56,6 +59,8 @@ class PostController extends Controller
         $data['user_id'] = Auth::id();
         $post->fill($data);
         $post->save();
+        //creo relazione con tags
+        if(array_key_exists('tags', $data)) $post->tags()->attach($data['tags']);
         return redirect()->route('admin.posts.show', $post->id);
     }
 

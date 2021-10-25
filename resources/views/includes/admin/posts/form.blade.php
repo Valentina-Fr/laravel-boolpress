@@ -27,7 +27,7 @@
     <div class="form-group">
       <label for="category_id">Category</label>
       <select id="category_id" class="form-control" name="category_id">
-        <option value=""">None</option>
+        <option value="">None</option>
         @foreach ($categories as $category)
         <option value="{{ $category->id }}" @if(old('category_id', $post->category_id) == $category->id) selected @endif>
           {{ $category->name }}
@@ -38,5 +38,13 @@
         @error('article') {{ $message }} @enderror
       </div>
     </div>
+    <fieldset class="mb-3">
+      <legend class="h6">Tags</legend>
+      @foreach($tags as $tag)
+      <label class="align-middle" for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
+      <input id="tag-{{ $tag->id }}" class="mr-2" type="checkbox"  value="{{ $tag->id }}" name="tags[]"
+      @if(in_array($tag->id, old('tags', []))) checked @endif>
+      @endforeach
+    </fieldset>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
