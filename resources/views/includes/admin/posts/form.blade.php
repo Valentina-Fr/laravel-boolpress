@@ -43,7 +43,7 @@
       @foreach($tags as $tag)
       <label class="align-middle" for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
       <input id="tag-{{ $tag->id }}" class="mr-2" type="checkbox"  value="{{ $tag->id }}" name="tags[]"
-      @if(in_array($tag->id, old('tags', []))) checked @endif>
+      @if(in_array($tag->id, old('tags', $tagIds?? []))) checked @endif>
       @endforeach
     </fieldset>
     <button type="submit" class="btn btn-primary">Submit</button>

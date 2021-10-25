@@ -81,10 +81,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post, Category $category)
+    public function edit(Post $post)
     {   
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post', 'categories')); 
+        $tags = Tag::all();
+        $tagIds = $post->tags->pluck('id')->toArray();
+        return view('admin.posts.edit', compact('post', 'categories', 'tags', 'tagIds')); 
     }
 
     /**
@@ -99,6 +101,7 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|min:3|max:50',
             'article' => 'required|min:10',
+            'tags' => 'nullable|exists:tags,id'
         ], [
             'required' => 'You must fill the :attribute field',
             'min' => 'The field :attribute must be at least :min characters',
@@ -106,6 +109,8 @@ class PostController extends Controller
         ]);
 
         $data = $request->all();
+        if(!array_key_exists('tags', $data) && count($post->tags)) $post->tags()->detach();
+        else $post->tags()->sync($data['tags']);
         $post->update($data);
         return redirect()->route('admin.posts.show', $post->id);
     }
