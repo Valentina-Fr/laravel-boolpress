@@ -25,7 +25,7 @@
                 <td class="text-center">@if($post->category) <span class="badge badge-pill badge-success p-2">{{ $post->category->name }}</span> @else - @endif</td>
                 <td>
                   @forelse ($post->tags as $tag)
-                  <span class="badge badge-pill p-2 my-1" style="background-color: {{ $tag->color }}">{{ $tag->name }}</span>
+                  <span class="badge badge-pill text-white p-2 my-1" style="background-color: {{ $tag->color }}">{{ $tag->name }}</span>
                   @empty  -
                   @endforelse
                 </td>
