@@ -39,11 +39,11 @@
               @endforelse
             </tbody>
         </table>
-        <section>
+        <section class="pb-2">
           {{ $posts->links() }}
         </section>
         <hr>
-        <h3>Posts by categories</h3>
+        <h3>Posts by category</h3>
         <div class="row">
           @foreach ($categories as $category)
             <div class="col-3 pt-5">
