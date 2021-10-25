@@ -5,6 +5,8 @@
                 <h5 class="card-title">{{ post.title }}</h5>
                 <p class="card-text">{{ post.article }}</p>
                 <small>Published: {{ getFormattedDate(post.created_at) }}</small>
+                <ul v-if="post.tags.length">Tags:</ul>
+                <li v-for="(tag, index) in post.tags" :key="index">{{ tag.name }} </li>
             </div>
         </div>
     </div>
@@ -38,5 +40,13 @@ export default {
 </script>
 
 <style scoped>
-    
+    ul, li {
+        display: inline-block;
+        font-size: 80%;
+        font-weight: 400;
+    }
+
+    li {
+        padding-left: 5px;
+    }
 </style>
