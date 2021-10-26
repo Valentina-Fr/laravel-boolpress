@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
 
         $user->save();
 
-        for($i = 0; $i < 2; $i++){
+        for ($i = 0; $i < 2; $i++) {
 
 
             $user = new User();
@@ -29,9 +29,6 @@ class UsersTableSeeder extends Seeder
             $user->password = bcrypt($faker->password());
 
             $user->save();
-
         }
-
-
     }
 }

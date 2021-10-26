@@ -1,6 +1,7 @@
 <?php
 
 use App\User;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 use App\Models\Post;
 use Faker\Generator as Faker;
@@ -16,11 +17,13 @@ class PostsTableSeeder extends Seeder
     public function run(Faker $faker)
     {
         $user_ids = User::pluck('id')->toArray();
-        for($i = 0; $i < 50; $i++) {
+        $category_ids = Category::pluck('id')->toArray();
+        for ($i = 0; $i < 50; $i++) {
             $post = new Post();
             $post->title = $faker->text(50);
             $post->article = $faker->paragraphs(3, true);
             $post->user_id = Arr::random($user_ids);
+            $post->category_id = Arr::random($category_ids);
             $post->save();
         }
     }
