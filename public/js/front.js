@@ -2328,6 +2328,10 @@ __webpack_require__.r(__webpack_exports__);
         month = '0' + month;
       }
 
+      if (minutes < 10) {
+        minutes = '0' + minutes;
+      }
+
       return "".concat(day, "/").concat(month, "/").concat(year, " ").concat(hours, ":").concat(minutes);
     }
   }
@@ -6888,7 +6892,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nul[data-v-92b6e456], li[data-v-92b6e456] {\n    display: inline-block;\n    font-size: 80%;\n    font-weight: 400;\n}\nli[data-v-92b6e456] {\n    padding-left: 5px;\n}\n", ""]);
+exports.push([module.i, "\nul[data-v-92b6e456], li[data-v-92b6e456] {\n    display: inline-block;\n    font-size: 80%;\n    font-weight: 400;\n}\nli[data-v-92b6e456] {\n    padding-right: 5px;\n}\n", ""]);
 
 // exports
 
@@ -38835,7 +38839,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            post.tags.length ? _c("ul", [_vm._v("Tags:")]) : _vm._e(),
+            post.tags.length ? _c("ul", [_vm._v("Tags: ")]) : _vm._e(),
             _vm._v(" "),
             _vm._l(post.tags, function(tag, index) {
               return _c("li", { key: index }, [_vm._v(_vm._s(tag.name) + " ")])
@@ -51613,7 +51617,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\valentina\laravel-boolpress\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Laravel\laravel-boolpress\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

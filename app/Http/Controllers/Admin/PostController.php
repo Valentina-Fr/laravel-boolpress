@@ -109,7 +109,7 @@ class PostController extends Controller
         ]);
 
         $data = $request->all();
-        if(!array_key_exists('tags', $data) && count($post->tags)) $post->tags()->detach();
+        if(!array_key_exists('tags', $data)) $post->tags()->detach();
         else $post->tags()->sync($data['tags']);
         $post->update($data);
         return redirect()->route('admin.posts.show', $post->id);

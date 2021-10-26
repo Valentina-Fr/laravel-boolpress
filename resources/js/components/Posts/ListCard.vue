@@ -5,7 +5,7 @@
                 <h5 class="card-title">{{ post.title }}</h5>
                 <p class="card-text">{{ post.article }}</p>
                 <small>Published: {{ getFormattedDate(post.created_at) }}</small>
-                <ul v-if="post.tags.length">Tags:</ul>
+                <ul v-if="post.tags.length">Tags: </ul>
                 <li v-for="(tag, index) in post.tags" :key="index">{{ tag.name }} </li>
             </div>
         </div>
@@ -23,7 +23,7 @@ export default {
             let month = postDate.getMonth() + 1;
             let year = postDate.getFullYear();
             const hours = postDate.getHours();
-            const minutes = postDate.getMinutes();
+            let minutes = postDate.getMinutes();
 
             if (day < 10) {
                 day = '0' + day;
@@ -31,6 +31,10 @@ export default {
             
             if(month < 10) {
                 month = '0' + month;
+            }
+
+            if(minutes < 10) {
+                minutes = '0' + minutes;
             }
 
             return `${day}/${month}/${year} ${hours}:${minutes}`
@@ -47,6 +51,6 @@ export default {
     }
 
     li {
-        padding-left: 5px;
+        padding-right: 5px;
     }
 </style>
