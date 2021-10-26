@@ -28,8 +28,10 @@
                   @empty  -
                   @endforelse
                 </td>
-                <td class="text-center">@if($post->category) 
-                  <span class="badge badge-pill badge-dark p-2">{{ $post->category->name }}</span>@else - @endif
+                <td class="text-center">
+                  @if($post->category) 
+                  <span class="badge badge-pill p-2 text-white" style="background-color: {{ $post->category->color }}">{{ $post->category->name }}</span>
+                  @else - @endif
                 </td>
                 <td class="d-flex justify-content-around">
                   <a href="{{ route('admin.posts.show', $post->id) }}" class="btn btn-primary mx-1">Read</a>

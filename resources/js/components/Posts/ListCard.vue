@@ -5,8 +5,9 @@
                 <h5 class="card-title">{{ post.title }}</h5>
                 <p class="card-text">{{ post.article }}</p>
                 <small>Published: {{ getFormattedDate(post.created_at) }}</small>
+                <small class="ml-5">Category: {{ post.category.name }}</small>
                 <ul v-if="post.tags.length">Tags: </ul>
-                <li v-for="(tag, index) in post.tags" :key="index">{{ tag.name }} </li>
+                <li v-for="(tag, index) in post.tags" :key="index">{{ tag.name }}</li>
             </div>
         </div>
     </div>

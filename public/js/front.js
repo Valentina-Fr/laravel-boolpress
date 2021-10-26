@@ -2308,6 +2308,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ListCard',
   props: ['postList'],
@@ -38839,10 +38840,14 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
+            _c("small", { staticClass: "ml-5" }, [
+              _vm._v("Category: " + _vm._s(post.category.name))
+            ]),
+            _vm._v(" "),
             post.tags.length ? _c("ul", [_vm._v("Tags: ")]) : _vm._e(),
             _vm._v(" "),
             _vm._l(post.tags, function(tag, index) {
-              return _c("li", { key: index }, [_vm._v(_vm._s(tag.name) + " ")])
+              return _c("li", { key: index }, [_vm._v(_vm._s(tag.name))])
             })
           ],
           2
