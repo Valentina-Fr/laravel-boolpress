@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <div class="d-flex justify-content-between">
+        <header class="d-flex justify-content-between">
           <h1>My Blog</h1>
           <a href="{{ route('admin.posts.create') }}" class="btn btn-success align-self-center">Write new post</a>
-        </div>
+        </header>
+        @include('includes.alert')
         <table class="table">
             <thead>
               <tr>

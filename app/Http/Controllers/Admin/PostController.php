@@ -125,6 +125,6 @@ class PostController extends Controller
     {
         if(count($post->tags)) $post->tags()->detach();
         $post->delete();
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('alert-type', 'success')->with('alert-message', 'Message deleted!');
     }
 }
