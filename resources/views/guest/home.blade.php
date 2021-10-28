@@ -72,6 +72,7 @@
                         <a href="{{ route('admin.home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('guest.contact') }}">Contact us</a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>

@@ -13,9 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('guest.home');
 });
+
+Route::get('/guest/contact', 'MailController@contact')->name('guest.contact');
+Route::post('/guest/contact', 'MailController@send')->name('guest.send');
+Route::get('/guest/thanks', 'MailController@thanks')->name('guest.thanks');
 
 Auth::routes();
 
