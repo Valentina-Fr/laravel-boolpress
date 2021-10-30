@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -47,16 +48,22 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|min:3|max:50',
             'article' => 'required|min:10',
-            'tags' => 'nullable|exists:tags,id'
+            'tags' => 'nullable|exists:tags,id',
+            'image' =>  'nullable|mimes:jpeg,png,jpg,gif,svg'
         ], [
             'required' => 'You must fill the :attribute field',
             'min' => 'The field :attribute must be at least :min characters',
-            'max' => 'The field :attribute can\'t be longer than :max characters'
+            'max' => 'The field :attribute can\'t be longer than :max characters',
+            'image.mimes' => 'The file must be an image of type: :jpeg, png, jpg, gif, svg'
         ]);
 
         $data = $request->all();
         $post = new Post();
         $data['user_id'] = Auth::id();
+        if(array_key_exists('image', $data)) {
+            $image_path = Storage::put('post_images', $data['image']);
+            $data['image'] = $image_path;
+        }
         $post->fill($data);
         $post->save();
         //creo relazione con tags
@@ -101,16 +108,23 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|min:3|max:50',
             'article' => 'required|min:10',
-            'tags' => 'nullable|exists:tags,id'
+            'tags' => 'nullable|exists:tags,id', 
+            'image' => 'nullable|mimes:mimes:jpeg,png,jpg,gif,svg'
         ], [
             'required' => 'You must fill the :attribute field',
             'min' => 'The field :attribute must be at least :min characters',
-            'max' => 'The field :attribute can\'t be longer than :max characters'
+            'max' => 'The field :attribute can\'t be longer than :max characters',
+            'image.mimes' => 'The file must be an image of type: :jpeg, png, jpg, gif, svg'
         ]);
 
         $data = $request->all();
         if(!array_key_exists('tags', $data)) $post->tags()->detach();
         else $post->tags()->sync($data['tags']);
+        if(array_key_exists('image', $data)) {
+            if($post->image) Storage::delete($post->image);
+            $image_path = Storage::put('post_images', $data['image']);
+            $data['image'] = $image_path;
+        }
         $post->update($data);
         return redirect()->route('admin.posts.show', $post->id);
     }
@@ -124,6 +138,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         if(count($post->tags)) $post->tags()->detach();
+        if($post->image) Storage::delete($post->image);
         $post->delete();
         return redirect()->route('admin.posts.index')->with('alert-type', 'success')->with('alert-message', 'Message deleted!');
     }

@@ -2,7 +2,12 @@
 @section('content')
     <div class="container">
         <h1>{{ $post->title }}</h1>
-        <p> {{ $post->article }}</p>
+        <div class="d-flex">
+            <p> {{ $post->article }}</p>
+            @if($post->image)
+            <img class="w-25 mb-4" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
+            @endif
+        </div>
         <div class="d-flex justify-content-between align-items-center">
             @if($post->category)
             <div class="text-secondary">Category: 

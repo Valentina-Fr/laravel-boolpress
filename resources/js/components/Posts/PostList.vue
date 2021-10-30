@@ -1,11 +1,11 @@
 <template>
-    <div class="container py-5">
-        <div class="vh-100 d-flex justify-content-center align-items-center" v-if="isLoading">
+    <div class="container vh-100 py-5">
+        <div class="h-100 d-flex justify-content-center align-items-center" v-if="isLoading">
             <div class="spinner-border"></div>
         </div>
-        <Pagination :pagination='pages' @goToPage='getPosts'/>
+        <Pagination v-if="!isLoading" :pagination='pages' @goToPage='getPosts'/>
         <ListCard :post-list='posts' />
-        <Pagination :pagination='pages' @goToPage='getPosts'/>
+        <Pagination v-if="!isLoading" :pagination='pages' @goToPage='getPosts'/>
     </div>
 </template>
 

@@ -2309,6 +2309,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ListCard',
   props: ['postList'],
@@ -6893,7 +6899,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nul[data-v-92b6e456], li[data-v-92b6e456] {\n    display: inline-block;\n    font-size: 80%;\n    font-weight: 400;\n}\nli[data-v-92b6e456] {\n    padding-right: 5px;\n}\n", ""]);
+exports.push([module.i, "\nul[data-v-92b6e456], li[data-v-92b6e456] {\n    display: inline-block;\n    font-size: 80%;\n    font-weight: 400;\n    margin-bottom: 0;\n}\nli[data-v-92b6e456] {\n    padding-right: 5px;\n}\n", ""]);
 
 // exports
 
@@ -38822,27 +38828,40 @@ var render = function() {
     "div",
     _vm._l(_vm.postList, function(post, index) {
       return _c("div", { key: index, staticClass: "card my-5" }, [
-        _c(
-          "div",
-          { staticClass: "card-body" },
-          [
-            _c("h5", { staticClass: "card-title" }, [
-              _vm._v(_vm._s(post.title))
-            ]),
-            _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(post.title))]),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex" }, [
             _c("p", { staticClass: "card-text" }, [
               _vm._v(_vm._s(post.article))
             ]),
             _vm._v(" "),
-            _c("small", [
+            post.image
+              ? _c("img", {
+                  staticClass: "w-25",
+                  attrs: { src: "./storage/" + post.image, alt: post.title }
+                })
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "card-footer" },
+          [
+            _c("small", [_vm._v("Author: " + _vm._s(post.author.name))]),
+            _vm._v(" "),
+            _c("small", { staticClass: "ml-5" }, [
               _vm._v(
                 "Published: " + _vm._s(_vm.getFormattedDate(post.created_at))
               )
             ]),
             _vm._v(" "),
-            _c("small", { staticClass: "ml-5" }, [
-              _vm._v("Category: " + _vm._s(post.category.name))
-            ]),
+            post.category
+              ? _c("small", { staticClass: "ml-5" }, [
+                  _vm._v("Category: " + _vm._s(post.category.name))
+                ])
+              : _vm._e(),
             _vm._v(" "),
             post.tags.length ? _c("ul", [_vm._v("Tags: ")]) : _vm._e(),
             _vm._v(" "),
@@ -38983,30 +39002,34 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "container py-5" },
+    { staticClass: "container vh-100 py-5" },
     [
       _vm.isLoading
         ? _c(
             "div",
             {
               staticClass:
-                "vh-100 d-flex justify-content-center align-items-center"
+                "h-100 d-flex justify-content-center align-items-center"
             },
             [_c("div", { staticClass: "spinner-border" })]
           )
         : _vm._e(),
       _vm._v(" "),
-      _c("Pagination", {
-        attrs: { pagination: _vm.pages },
-        on: { goToPage: _vm.getPosts }
-      }),
+      !_vm.isLoading
+        ? _c("Pagination", {
+            attrs: { pagination: _vm.pages },
+            on: { goToPage: _vm.getPosts }
+          })
+        : _vm._e(),
       _vm._v(" "),
       _c("ListCard", { attrs: { "post-list": _vm.posts } }),
       _vm._v(" "),
-      _c("Pagination", {
-        attrs: { pagination: _vm.pages },
-        on: { goToPage: _vm.getPosts }
-      })
+      !_vm.isLoading
+        ? _c("Pagination", {
+            attrs: { pagination: _vm.pages },
+            on: { goToPage: _vm.getPosts }
+          })
+        : _vm._e()
     ],
     1
   )

@@ -3,11 +3,17 @@
         <div class="card my-5" v-for="(post, index) in postList" :key="index">
             <div class="card-body">
                 <h5 class="card-title">{{ post.title }}</h5>
-                <p class="card-text">{{ post.article }}</p>
-                <small>Published: {{ getFormattedDate(post.created_at) }}</small>
-                <small class="ml-5">Category: {{ post.category.name }}</small>
+                <div class="d-flex">
+                    <p class="card-text">{{ post.article }}</p>
+                    <img class="w-25" v-if="post.image" :src="`./storage/${post.image}`" :alt="post.title">
+                </div>
+            </div>
+            <div class="card-footer">
+                <small>Author: {{ post.author.name }}</small>
+                <small class="ml-5">Published: {{ getFormattedDate(post.created_at) }}</small>
+                <small class="ml-5" v-if="post.category">Category: {{ post.category.name }}</small>
                 <ul v-if="post.tags.length">Tags: </ul>
-                <li v-for="(tag, index) in post.tags" :key="index">{{ tag.name }}</li>
+                <li v-for="(tag, index) in post.tags" :key="index">{{ tag.name }}</li>              
             </div>
         </div>
     </div>
@@ -49,6 +55,7 @@ export default {
         display: inline-block;
         font-size: 80%;
         font-weight: 400;
+        margin-bottom: 0;
     }
 
     li {

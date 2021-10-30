@@ -4,10 +4,10 @@
 </div>
 @endif
 @if ($post->exists)
-<form method="POST" action="{{ route('admin.posts.update', $post) }}">
+<form method="POST" action="{{ route('admin.posts.update', $post) }}" enctype="multipart/form-data">
     @method('PATCH')    
 @else
-<form method="POST" action="{{ route('admin.posts.store', $post) }}">
+<form method="POST" action="{{ route('admin.posts.store', $post) }}" enctype="multipart/form-data">
 @endif
     @csrf
     <div class="form-group">
@@ -24,6 +24,16 @@
         @error('article') {{ $message }} @enderror
       </div>
     </div>
+    <div class="form-group">
+      <label for="image">Upload image</label>
+      <input type="file" class="form-control-file @error('image') is-invalid @enderror" id="image" name="image">
+      <div class="invalid-feedback">
+        @error('image') {{ $message }} @enderror
+      </div>
+    </div>
+    @if($post->image)
+    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-25 mb-3">
+    @endif
     <div class="form-group">
       <label for="category_id">Category</label>
       <select id="category_id" class="form-control" name="category_id">
